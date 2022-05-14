@@ -60,6 +60,7 @@ export class MockService {
 
 
     if (init || !this.generated || this.lastGranulity !== param.granularity) {
+      console.log('in if get hitory');
       this.lastGranulity = param.granularity;
       list = this.generateHistoryData();
       console.log(list);
@@ -112,6 +113,7 @@ export class MockService {
             open: o.open,
             close: o.close
           };
+          console.log('bar', bar);
           return cryptoBarMap.set(o.currentCrypto, bar);
         }))
         .subscribe(x => {

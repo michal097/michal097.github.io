@@ -10,7 +10,7 @@ import {FilterProperties} from '../trading-decisions/FilterProperties';
 })
 export class CrudService {
 
-  URL = 'https://auto-crypto-trader.herokuapp.com/';
+  URL = 'http://localhost:9090/';
 
   constructor(private http: HttpClient) {
   }

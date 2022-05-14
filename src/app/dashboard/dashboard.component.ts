@@ -73,13 +73,10 @@ export class DashboardComponent implements OnInit {
             userCryptos.forEach(u => this.createCryptoBars(u.cryptoName, u.price, u.quantity));
             this.service.alreadySellCryptoStats(data.botInstanceId).subscribe(sellStats => {
               sellStats.forEach(s => {
-                console.log('misterius s', s);
                 this.createSellCryptoBars(s.cryptoName, s.close);
               });
             });
-            console.log('this.cryptoBars', this.cryptoBars);
             this.retrieveWebsocketData();
-            this.getTradingStats();
           });
 
         } else {
@@ -90,11 +87,6 @@ export class DashboardComponent implements OnInit {
       }
     });
   }
-
-  getTradingStats(): void {
-    //this.service.getUserStatistics(this.actualUser.botInstanceId).subscribe(d => this.stockchartData = d);
-  }
-
 
   goToBotConfiguration(): void {
     this.router.navigate(['my-data']);
