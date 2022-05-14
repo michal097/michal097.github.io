@@ -23,7 +23,7 @@ export class DashboardComponent implements OnInit {
   public stockchartData: Object[];
   public title: string;
   public crosshair: {};
-  userHavingKeys: boolean;
+  userHavingKeys: boolean = undefined;
   traderStart: boolean;
   actualUser: UserData;
   loader = false;
@@ -37,15 +37,16 @@ export class DashboardComponent implements OnInit {
   high = '0';
   userDailyStats: UserDailyStats[] = [];
   cryptoBars: Map<string, BarData> = new Map<string, BarData>();
+  startSpinner: boolean;
 
   ngOnInit() {
-
-
+    this.startSpinner = true;
     this.loader = false;
     const user: string | null = sessionStorage.getItem('username');
     this.service.getUserInstance(user).subscribe((data: UserData) => {
       this.actualUser = data;
-      if (data.pkey !== null && data.skey !== null) {
+      this.userHavingKeys = data.pkey !== null && data.skey !== null;
+      if (this.userHavingKeys) {
 
         if (!sessionStorage.getItem('botId')) {
           const userId: string = data.botInstanceId;
@@ -85,6 +86,7 @@ export class DashboardComponent implements OnInit {
       } else {
         this.startWebSocket = true;
       }
+      this.startSpinner = false;
     });
   }
 
@@ -146,17 +148,6 @@ export class DashboardComponent implements OnInit {
         });
   }
 
-  getDailyStats(stats: any): void {
-    // this.stockchartData = [];
-    // const dateIndex = this.stockchartData.findIndex(((statistics: UserStatistics) =>
-    //   new Date(statistics.date).toDateString() === new Date().toDateString()));
-    // if (dateIndex !== -1) {
-    //   this.stockchartData.length = this.stockchartData.length - 1;
-    //   this.stockchartData.push(stats);
-    // } else {
-    //   this.stockchartData.push(stats);
-    // }
-  }
 
   checkStonks(currentCryptoStat: CryptoRealPrice): boolean {
     const actualPrice = currentCryptoStat.price;

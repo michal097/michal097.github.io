@@ -16,7 +16,8 @@ const routes: Routes = [
   {path: '', component: DashboardComponent, canActivate: [AuthGuardService]},
   {path: 'my-data', component: UserdataComponent, canActivate: [AuthGuardService]},
   {path: 'trading-decisions', component: TradingDecisionsComponent, canActivate: [AuthGuardService]},
-  {path: 'my-crypto', component: SummaryComponent, canActivate: [AuthGuardService]}
+  {path: 'my-crypto', component: SummaryComponent, canActivate: [AuthGuardService]},
+  {path: '**', component: MailVerificationComponent} // todo workaround
 
 ];
 

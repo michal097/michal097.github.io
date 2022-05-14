@@ -1,8 +1,13 @@
-<mat-card *ngIf="!userHavingKeys">You did not start yet, firstly you have to configure your bot. Go to menu <a
+<div *ngIf="userHavingKeys === undefined">
+  <mat-spinner class="center_spinner_bot" diameter="150"
+               value="40"></mat-spinner>
+</div>
+
+<mat-card *ngIf="userHavingKeys !== undefined && !userHavingKeys">You did not start yet, firstly you have to configure your bot. Go to menu <a
   (click)="goToBotConfiguration()" class="go_to">"Custom bot configuration"</a>
 </mat-card>
 
-<mat-card style="background: #212529" *ngIf="!userHavingKeys">
+<mat-card style="background: #212529" *ngIf="userHavingKeys !== undefined && !userHavingKeys">
   <h1>How to start</h1>
   <mat-list>
     <mat-list-item>1. Create binance account</mat-list-item>
@@ -28,11 +33,12 @@
 </button>
 
 <mat-spinner class="center_spinner_bot" diameter="150"
-             value="40" *ngIf="userHavingKeys && traderStart && !currentCryptosAsString"></mat-spinner>
+             value="40" *ngIf="userHavingKeys && startSpinner"></mat-spinner>
 
-<mat-card *ngIf="userHavingKeys && traderStart && currentCryptosAsString" style="background: #191B1C">
+<mat-card *ngIf="userHavingKeys !== undefined && userHavingKeys" style="background: #191B1C">
   <div id="parent">
     <mat-card class="stats">
+      <p *ngIf="!currentCryptosAsString" style="color: white; font-weight: bold; font-size: 20px"> Currently, there is no crypto trading by bot</p>
       <p *ngFor="let stat of statistics">
         <a style="color: #68abff; font-weight: bold">{{stat.currentCrypto}}: &nbsp;</a>
         <a
@@ -50,6 +56,3 @@
   </div>
   <app-tv style="height: 10px" [symbol]="currentCryptosAsString" [bars]="cryptoBars"></app-tv>
 </mat-card>
-
-
-

@@ -39,7 +39,6 @@ export class TvComponent implements OnInit, OnDestroy {
     this.drawTv();
     this.ws.onopen = () => {
       console.log('connect success');
-      // this.drawTv();
     };
   }
 

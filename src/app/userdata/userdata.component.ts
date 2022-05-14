@@ -77,9 +77,7 @@ export class UserdataComponent implements OnInit {
     const user: string | null = sessionStorage.getItem('username');
     this.service.getUserInstance(user).subscribe((data: UserData) => {
       this.userData = data;
-      if (data.pkey !== null && data.skey !== null) {
-        this.isUserHavingKeys = true;
-      }
+      this.isUserHavingKeys = data.pkey !== null && data.skey !== null;
     });
     return this.isUserHavingKeys;
   }

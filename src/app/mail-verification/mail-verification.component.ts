@@ -15,16 +15,21 @@ export class MailVerificationComponent implements OnInit {
   }
 
   ngOnInit() {
-
     this.activetedRoute.queryParams.subscribe(param => {
       const token = param['token'];
-      this.service.veryfiMail(token).subscribe(() => {
-          this.isSuccess = true;
-        },
-        (response) => {
-          this.isSuccess = false;
-          this.info = response.error.message;
-        });
+      console.log(token);
+      if (token !== undefined) {
+        this.service.veryfiMail(token).subscribe(() => {
+            this.isSuccess = true;
+          },
+          (response) => {
+            this.isSuccess = false;
+            this.info = response.error.message;
+          });
+      } else {
+        this.router.navigate(['/login']);
+      }
     });
   }
+
 }
