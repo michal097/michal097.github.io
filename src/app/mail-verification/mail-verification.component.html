@@ -1,0 +1,10 @@
+<mat-card class="info succ"
+          *ngIf="isSuccess">
+  <p> {{info}},
+    <a class="go_to" routerLink="">go to login </a>
+  </p>
+</mat-card>
+<mat-card class="info err"
+          *ngIf="!isSuccess">
+  <p> {{info}} </p>
+</mat-card>

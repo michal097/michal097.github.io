@@ -1,0 +1,62 @@
+<div class="content">
+  <mat-card>
+    <mat-tab-group mat-align-tabs="center">
+      <mat-tab label="Login">
+        <p>
+          <mat-form-field class="login_input" appearance="outline">
+            <mat-label>Username</mat-label>
+            <input matInput placeholder="Username" [(ngModel)]="username" name="username" required>
+          </mat-form-field>
+        </p>
+        <p>
+          <mat-form-field class="login_input" appearance="outline">
+            <mat-label>Password</mat-label>
+            <input matInput placeholder="Password" [(ngModel)]="password" type="password" name="password" required>
+          </mat-form-field>
+        </p>
+        <mat-card *ngIf="error" class="info err">{{error}}</mat-card>
+
+
+        <button class="login_button" mat-raised-button color="accent" (click)="checkLogin()">Login</button>
+      </mat-tab>
+      <mat-tab label="Register" *ngIf="showRegister">
+        <div *ngIf="!userGeneratedMessage">
+        <a>
+          <mat-form-field class="login_input" appearance="outline">
+            <mat-label>Username</mat-label>
+            <input matInput placeholder="Username" [(ngModel)]="user.username" type="text" name="Username" required>
+          </mat-form-field>
+        </a>
+          <a>
+            <mat-form-field class="login_input" appearance="outline">
+              <mat-label>Email</mat-label>
+              <input matInput placeholder="Email" [(ngModel)]="user.email" type="text" name="email" required>
+            </mat-form-field>
+          </a>
+        <a>
+          <mat-form-field class="login_input" appearance="outline">
+            <mat-label>Password</mat-label>
+            <input matInput placeholder="Password" [(ngModel)]="user.password" type="password" name="password" required>
+          </mat-form-field>
+        </a>
+
+        <a>
+          <mat-form-field class="login_input" appearance="outline">
+            <mat-label>Repeat password</mat-label>
+            <input matInput placeholder="Repeat password" [(ngModel)]="passwordRepeat" type="password" name="password"
+                   required>
+          </mat-form-field>
+
+        </a>
+        <mat-card *ngIf="err" class="info err">{{err}}</mat-card>
+        <mat-card *ngIf="invalidPass" class="info err">{{invalidPass}}</mat-card>
+
+
+        <button class="login_button" mat-raised-button color="accent" (click)="register(passwordRepeat);saveUser()">Register</button>
+        </div>
+        <mat-card *ngIf="userGeneratedMessage" class="info succ">{{userGeneratedMessage}}, verify email and log in</mat-card>
+
+      </mat-tab>
+    </mat-tab-group>
+  </mat-card>
+</div>

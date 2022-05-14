@@ -1,0 +1,162 @@
+<div *ngIf="isUserHavingKeys === undefined">
+  <mat-spinner class="ceneter"></mat-spinner>
+</div>
+<div *ngIf="isUserHavingKeys !== undefined">
+<mat-card class="info" *ngIf="!isUserHavingKeys"> Enter new data and save</mat-card>
+<mat-card class="info" *ngIf="isUserHavingKeys"> Update already existing data</mat-card>
+<mat-card *ngIf="isUserHavingKeys" class="user_data_container">
+  <p class="title_card_inside">Buy crypto configuration</p>
+  <mat-card class="card_inside">
+    <mat-form-field class="trader_input" appearance="outline">
+      <mat-label>Trade pair</mat-label>
+      <input matInput placeholder="Trade pair"
+             [(ngModel)]="tradePair"
+             readonly>
+    </mat-form-field>
+    <mat-form-field class="trader_input" appearance="outline">
+      <mat-label>Diversification count</mat-label>
+      <input matInput placeholder="Diversification count"
+             type="number"
+             name="Diversification count"
+             step="1" min="1"
+             max="5" required
+             [(ngModel)]="userData.toDiversificationCount"
+             readonly>
+    </mat-form-field>
+  </mat-card>
+  <br>
+  <p class="title_card_inside">Stop loss configuration</p>
+  <mat-card class="card_inside">
+    <mat-form-field class="trader_input" appearance="outline">
+
+      <mat-label>Allow percentage loss</mat-label>
+      <input matInput placeholder="Public key"
+             type="number"
+             name="Allow percentage loss"
+             [(ngModel)]="userData.allowPercentageLoss"
+             readonly>
+    </mat-form-field>
+
+
+    <mat-form-field class="trader_input" appearance="outline">
+      <mat-label>Allow watch loss</mat-label>
+      <input matInput placeholder="Public key" type="number"
+             name="Allow watch loss"
+             [(ngModel)]="userData.percentageLossInWatch"
+             readonly>
+    </mat-form-field>
+  </mat-card>
+  <br>
+
+</mat-card>
+
+<mat-spinner *ngIf="toggleSpinner" class="ceneter"></mat-spinner>
+
+
+<button *ngIf="isUserHavingKeys" (click)="changeSaveEdit()" mat-raised-button class="center_button edit">Edit data</button>
+
+<mat-stepper *ngIf="!isUserHavingKeys" #stepper class="user_data_container">
+  <mat-step [stepControl]="firstFormGroup" errorMessage="Fill all required data!">
+    <form class="form" [formGroup]="firstFormGroup">
+      <ng-template matStepLabel>Define trade pair and diversification</ng-template>
+
+      <mat-form-field class="trader_input" appearance="outline">
+        <mat-label>Select trade pair</mat-label>
+        <mat-select [(value)]="tradePair">
+          <mat-option value="USDT">USDT</mat-option>
+          <mat-option value="BUSD">BUSD</mat-option>
+          <mat-option value="BTC">BTC</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="trader_input" appearance="outline">
+        <mat-label>Diversification count</mat-label>
+        <input matInput placeholder="Diversification count"
+               type="number"
+               name="Diversification count"
+               step="1" min="1"
+               max="5" formControlName="firstCtrl" required
+               [(ngModel)]="userData.toDiversificationCount">
+      </mat-form-field>
+      <div class="buttons_container">
+        <button mat-button matStepperNext class="save next_button">Go to stop loss configuration</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="secondFormGroup" errorMessage="Fill stop loss config!">
+    <form class="form" [formGroup]="secondFormGroup">
+      <ng-template matStepLabel>Set stop loss configuration</ng-template>
+
+      <mat-form-field class="trader_input" appearance="outline">
+        <mat-label>Allow percentage loss</mat-label>
+        <input matInput placeholder="Allow percentage loss"
+               type="number"
+               name="Diversification count"
+               step="1"
+               min="1"
+               max="5"
+               formControlName="secondCtrl"
+               required
+               [(ngModel)]="userData.allowPercentageLoss">
+      </mat-form-field>
+
+      <mat-form-field class="trader_input" appearance="outline">
+        <mat-label>Allow watch loss</mat-label>
+        <input matInput placeholder="Allow watch loss"
+               type="number"
+               name="Allow watch loss"
+               [(ngModel)]="userData.percentageLossInWatch"
+               step="0.1"
+               min="0"
+               max="50"
+               formControlName="secondCtrl"
+               required>
+      </mat-form-field>
+      <div class="buttons_container">
+        <button mat-button matStepperPrevious class="edit edit_stepper">Back</button>
+        <button mat-button matStepperNext class="save move_button_stepper">Go to API keys</button>
+      </div>
+    </form>
+  </mat-step>
+
+  <mat-step [stepControl]="thirdFormGroup" errorMessage="You have to add API Keys">
+    <form class="form" [formGroup]="thirdFormGroup">
+      <ng-template matStepLabel>Add API keys</ng-template>
+
+      <mat-form-field class="trader_input"
+                      appearance="outline">
+        <mat-label>Binance public key</mat-label>
+        <input matInput placeholder="Public key"
+               [(ngModel)]="userData.pkey"
+               type="text"
+               name="Public key"
+               formControlName="thirdCtrl"
+               required>
+      </mat-form-field>
+
+      <mat-form-field class="trader_input"
+                      appearance="outline">
+        <mat-label>Binance secret key</mat-label>
+        <input matInput
+               placeholder="Secret key"
+               [(ngModel)]="userData.skey"
+               type="text"
+               name="Secret key"
+               formControlName="thirdCtrl"
+               required>
+      </mat-form-field>
+
+      <div class="buttons_container">
+        <button mat-button matStepperPrevious class="edit edit_stepper">Back</button>
+        <button *ngIf="thirdFormGroup"
+                (click)="updateUserData(userData.botInstanceId, userData);
+                toggleSpinnerFun();"
+                mat-raised-button class="save move_button_stepper" [disabled]="toggleSpinner">Save data
+        </button>
+      </div>
+    </form>
+  </mat-step>
+</mat-stepper>
+
+<mat-card *ngIf="err" class="err ">{{err}}</mat-card>
+</div>

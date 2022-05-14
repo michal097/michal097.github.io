@@ -1,0 +1,55 @@
+<mat-card *ngIf="!userHavingKeys">You did not start yet, firstly you have to configure your bot. Go to menu <a
+  (click)="goToBotConfiguration()" class="go_to">"Custom bot configuration"</a>
+</mat-card>
+
+<mat-card style="background: #212529" *ngIf="!userHavingKeys">
+  <h1>How to start</h1>
+  <mat-list>
+    <mat-list-item>1. Create binance account</mat-list-item>
+    <mat-list-item>2. Send funds to USDT stable coin</mat-list-item>
+    <mat-list-item>3. Generate Binance API keys</mat-list-item>
+    <mat-list-item>4. Make basic bot configuration</mat-list-item>
+    <mat-list-item>5. Back to this page and hit "start trader"</mat-list-item>
+    <mat-list-item>6. ENJOY!"</mat-list-item>
+
+  </mat-list>
+</mat-card>
+
+<button mat-raised-button color="accent"
+        *ngIf="userHavingKeys && !traderStart" (click)="startTraderWS()"
+        class="button_start_stop"
+        [disabled]="loader">Start trader
+</button>
+
+<button mat-raised-button color="warn"
+        *ngIf="userHavingKeys && traderStart" (click)="stopTraderWS()"
+        class="button_start_stop"
+        [disabled]="loader">Stop trader
+</button>
+
+<mat-spinner class="center_spinner_bot" diameter="150"
+             value="40" *ngIf="userHavingKeys && traderStart && !currentCryptosAsString"></mat-spinner>
+
+<mat-card *ngIf="userHavingKeys && traderStart && currentCryptosAsString" style="background: #191B1C">
+  <div id="parent">
+    <mat-card class="stats">
+      <p *ngFor="let stat of statistics">
+        <a style="color: #68abff; font-weight: bold">{{stat.currentCrypto}}: &nbsp;</a>
+        <a
+          [ngClass]="{'stonks': checkStonks(stat), 'not_stonks': !checkStonks(stat), 'none': checkStonks(stat) === null}">{{stat.price}}</a>
+        <a  style="color: #68abff; font-weight: bold">&nbsp;/</a>
+        <a [ngClass]="{'stonks': stat.percentage >= 0, 'not_stonks': stat.percentage < 0}">&nbsp;{{stat.percentage}} %</a>
+      </p>
+    </mat-card>
+
+    <mat-card class="stats">
+      <p><a class="text">Daily low:</a> {{low}} $</p>
+      <p><a class="text">Daily max:</a> {{high}} $</p>
+    </mat-card>
+
+  </div>
+  <app-tv style="height: 10px" [symbol]="currentCryptosAsString" [bars]="cryptoBars"></app-tv>
+</mat-card>
+
+
+

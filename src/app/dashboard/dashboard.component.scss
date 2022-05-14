@@ -1,0 +1,57 @@
+.mat-card {
+  text-align: center;
+  margin: 2%;
+  background-color: #b0a32c
+}
+
+.button_start_stop {
+  width: 30%;
+  margin: 2% 35%;
+}
+
+.center_spinner {
+  margin: 1% 47%;
+}
+
+.center_spinner_bot {
+  margin: 20% 45%;
+}
+
+.stats {
+  background-color: #4f4e4e;
+  width: 44%;
+  height: auto;
+  display: inline-block;
+}
+
+.stonks {
+  color: #88ff00;
+}
+
+.not_stonks {
+  color: #fa1616;
+}
+
+.none {
+  color: white;
+}
+
+.text {
+  color: #68abff;
+  font-weight: bold;
+  font-size: 20px;
+}
+#parent {
+  overflow: hidden;
+}
+.right {
+  float: right;
+  width: 100px;
+}
+.left {
+  overflow: hidden;
+}
+
+a{
+  padding-bottom: 50px;
+}

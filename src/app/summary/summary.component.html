@@ -1,0 +1,40 @@
+<mat-card class="info">Crypto wallet summary</mat-card>
+<mat-card *ngIf="hasAnyCrypto" style="margin: 2% 40%">
+<h2 style="text-align: center">Total money {{allMoney}} $</h2>
+</mat-card>
+  <div class="mat-elevation-z8" *ngIf="hasAnyCrypto && !loader" style="margin: 2% 10%">
+    <table mat-table #table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
+
+    <ng-container matColumnDef="cryptoName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Crypto name </th>
+      <td mat-cell *matCellDef="let summary">
+        <img width="20px" src="assets/SVG-icons/{{summary.cryptoName.toLowerCase()}}.svg"/>
+        {{summary.cryptoName}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="quantity">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Quantity </th>
+      <td mat-cell *matCellDef="let summary"> {{summary.quantity}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="money">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Money </th>
+      <td mat-cell *matCellDef="let summary"> {{summary.money}} </td>
+    </ng-container>
+
+    <tr mat-header-row
+        *matHeaderRowDef="displayedColumns">
+    </tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  </div>
+
+<mat-card *ngIf="!hasAnyCrypto && !loader" style="width: 50%; text-align: center; margin: 1% 25%">
+  You don't have any crypto on your wallet.
+</mat-card>
+
+<mat-spinner *ngIf="loader" class="ceneter"></mat-spinner>
+

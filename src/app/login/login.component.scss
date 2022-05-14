@@ -1,0 +1,39 @@
+.mat-card{
+  width: 500px;
+}
+
+.content{
+  padding: 10% 33%;
+}
+
+.login_button{
+  margin-left: 10%;
+  width: 80%!important;
+  color: #404040;
+  min-width: unset!important;
+}
+
+.login_input{
+  margin-top: 3%;
+  margin-left: 5%;
+  width: 90% !important;
+}
+
+.info{
+  text-align: center;
+  width: 85%;
+  margin: 5%;
+}
+.err{
+  background-color: #d00808;
+}
+
+.succ {
+  background-color: #60ba02;
+}
+
+.go_to{
+  text-decoration: underline;
+  color: white;
+  cursor: pointer;
+}
