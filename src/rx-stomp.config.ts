@@ -1,7 +1,7 @@
 import {InjectableRxStompConfig} from '@stomp/ng2-stompjs';
 
 export const myRxStompConfig: InjectableRxStompConfig = {
-  brokerURL: 'ws://auto-crypto-trader.herokuapp.com/websocket',
+  brokerURL: 'wss://auto-crypto-trader.herokuapp.com/websocket',
 
 
   connectHeaders: {
